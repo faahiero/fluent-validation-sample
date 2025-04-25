@@ -94,4 +94,24 @@ public ActionResult<Customer> Create(CustomerDto customerDto)
 - **LessThan**: Compara datas ou valores numéricos
 - **Must**: Validação personalizada com função custom
 
-Para mais detalhes, consulte a [documentação oficial do FluentValidation](https://fluentvalidation.net/). 
+## Validação de DTOs vs. Modelos de Domínio
+
+Neste projeto, implementamos validadores tanto para o DTO (CustomerDto) quanto para o modelo de domínio (Customer), mas é importante observar que:
+
+1. **Na maioria dos casos, validar apenas o DTO é suficiente**, pois:
+   - Os DTOs são as classes que recebem dados diretamente das requisições HTTP
+   - A validação deve ocorrer no ponto de entrada dos dados, antes de qualquer processamento
+   - O modelo de domínio é geralmente populado a partir de um DTO já validado
+
+2. **A validação do modelo de domínio geralmente é redundante quando:**
+   - Ele é populado a partir de um DTO já validado
+   - Não contém regras de negócio adicionais que não se aplicam ao DTO
+
+3. **A validação do modelo de domínio pode ser necessária quando:**
+   - Ele é manipulado diretamente sem passar por um DTO
+   - Possui regras específicas de domínio que não cabem no DTO
+   - É utilizado em processos internos onde não há um DTO como intermediário
+
+A abordagem mais comum e eficiente é validar apenas no ponto de entrada (DTO) e garantir que a conversão para o modelo de domínio preserva a integridade dos dados.
+
+Para mais detalhes, consulte a [documentação oficial do FluentValidation](https://fluentvalidation.net/).

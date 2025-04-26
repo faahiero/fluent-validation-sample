@@ -9,13 +9,15 @@ namespace FluentValidationApi.Controllers
     [Route("api/[controller]")]
     public class CustomersController : ControllerBase
     {
+        private readonly ILogger<CustomersController> _logger;
         private static List<Customer> _customers = new List<Customer>();
         private static int _nextId = 1;
         private readonly IValidator<CustomerDto> _validator;
 
-        public CustomersController(IValidator<CustomerDto> validator)
+        public CustomersController(IValidator<CustomerDto> validator, ILogger<CustomersController> logger)
         {
             _validator = validator;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -59,6 +61,8 @@ namespace FluentValidationApi.Controllers
             };
 
             _customers.Add(customer);
+            
+            _logger.LogInformation("Criando novo cliente com e-mail: {Email}", customerDto.Email);
             
             return CreatedAtAction(nameof(GetById), new { id = customer.Id }, customer);
         }

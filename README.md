@@ -94,6 +94,17 @@ public ActionResult<Customer> Create(CustomerDto customerDto)
 - **LessThan**: Compara datas ou valores numéricos
 - **Must**: Validação personalizada com função custom
 
+## Logging
+
+A aplicação implementa logging básico utilizando o sistema de logs nativo do ASP.NET Core. Os logs registram informações importantes como:
+
+- Recebimento de requisições
+- Resultados de validações
+- Erros e exceções
+- Conclusão de operações
+
+Essa implementação facilita o diagnóstico de problemas e oferece maior visibilidade sobre o comportamento da aplicação em execução.
+
 ## Validação de DTOs vs. Modelos de Domínio
 
 Neste projeto, implementamos validadores tanto para o DTO (CustomerDto) quanto para o modelo de domínio (Customer), mas é importante observar que:
